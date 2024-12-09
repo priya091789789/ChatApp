@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Application</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.4.0/dist/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Authentication Form -->
+    <div id="auth-container">
+      <h2>Login / Register</h2>
+      <form id="login-form">
+        <input type="text" id="username" placeholder="Enter username" required />
+        <input type="password" id="password" placeholder="Enter password" required />
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <button id="show-signup">Sign Up</button></p>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-container" style="display: none;">
+      <h2>Sign Up</h2>
+      <form id="signup-form">
+        <input type="text" id="new-username" placeholder="Enter username" required />
+        <input type="password" id="new-password" placeholder="Enter password" required />
+        <button type="submit">Sign Up</button>
+        <p>Already have an account? <button id="show-login">Login</button></p>
+      </form>
+    </div>
+
+    <!-- Room Management -->
+    <div id="room-container" style="display: none;">
+      <h2>Join or Create a Room</h2>
+      <button id="create-room">Create Room</button>
+      <input type="text" id="room-id" placeholder="Enter Room ID" required />
+      <button id="join-room">Join Room</button>
+      <p id="room-status"></p>
+    </div>
+
+    <!-- Chat UI -->
+    <div id="chat-container" style="display: none;">
+      <h3>Chat Room: <span id="current-room-name"></span></h3>
+      <div id="chat-box" class="chat-box"></div>
+      <div id="participants">
+        <h4>Participants:</h4>
+        <ul id="participants-list"></ul>
+      </div>
+      <input type="text" id="message-input" placeholder="Type your message..." />
+      <button id="send-message">Send</button>
+      <div id="typing-notification" style="display: none;"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
