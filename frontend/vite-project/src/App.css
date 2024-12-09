@@ -1,0 +1,134 @@
+/* General Body Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1d4ed8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #1d4ed8;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  margin: 0 1rem;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Chat Container */
+.chat-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-message {
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  max-width: 80%;
+}
+
+.chat-message.self {
+  background-color: #3b82f6;
+  color: white;
+  align-self: flex-end;
+}
+
+.chat-message.other {
+  background-color: #f1f5f9;
+  color: black;
+  align-self: flex-start;
+}
+
+/* Input Styles */
+input,
+textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.75rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+/* Button Styles */
+button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+/* Modal Styles (For User Authentication) */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal.open {
+  display: block;
+}
+
+.modal .modal-header {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.modal .modal-body {
+  margin-bottom: 1rem;
+}
+
+.modal .modal-footer {
+  text-align: right;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
