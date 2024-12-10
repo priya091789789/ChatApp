@@ -180,3 +180,12 @@ socket.on('participants', (participants) => {
     participantsList.appendChild(li);
   });
 });
+const exitRoomButton = document.getElementById('exit-room-button');
+exitRoomButton.addEventListener('click', () => {
+  socket.emit('exit-room', currentRoom);
+  chatContainer.style.display = 'none';
+  roomForm.style.display = 'block';
+  currentRoom = '';
+  currentRoomName.textContent = '';
+});
+

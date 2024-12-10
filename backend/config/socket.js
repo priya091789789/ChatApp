@@ -46,7 +46,7 @@ const setupSocket = (server) => {
         return; // Ignore empty messages
       }
 
-      const sender = socket.username || "Anonymous"; // Get the username
+      const sender = socket.username; // Get the username
 
       // Create and save the new message
       const newMessage = new Message({ room, sender, message });
@@ -64,6 +64,24 @@ const setupSocket = (server) => {
     // Event to handle stopping typing notifications
     socket.on("stop-typing", (room) => {
       socket.to(room).emit("stop-typing");
+    });
+
+    // Event to exit the room
+    socket.on("exit-room", async(roomId) => {
+      socket.leave(roomId);
+      console.log(`User ${socket.id} exited room: ${roomId}`);
+
+      // Emit updated participants list
+      io.to(roomId).emit("participants", getRoomParticipants(roomId));
+
+      // Check if the room is empty and delete it if necessary
+      const participants = getRoomParticipants(roomId);
+      if (participants.length === 0) {
+        console.log(`Room ${roomId} is empty. Deleting room...`);
+        await Message.deleteMany({ room: roomId });
+
+        // You can add code here to delete the room from your database or storage
+      }
     });
 
     // Handle disconnection
