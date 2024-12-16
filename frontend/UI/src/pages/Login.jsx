@@ -2,35 +2,41 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [username, setUsername] = useState('');  // State for username
+  const [password, setPassword] = useState('');  // State for password
+  const [errorMessage, setErrorMessage] = useState('');  // State for error messages
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    // Clear previous error message
+    setErrorMessage('');
+
     try {
-      // Send login request using fetch API
       const response = await fetch('http://localhost:9000/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),  // Send username and password
       });
 
       const data = await response.json();
 
+      console.log('Response:', data);  // Log the response for debugging
+
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        // Check if there is an error message from the backend
+        throw new Error(data.error || 'Login failed');
       }
 
-      // Save JWT token in localStorage
+      // Store token in localStorage
       localStorage.setItem('token', data.token);
-      navigate('/dashboard'); // Redirect to the dashboard or another protected page
+
+      // Redirect to dashboard (or wherever you'd like)
+      navigate('/join-or-create-room');
     } catch (error) {
-      setErrorMessage(error.message);
+      console.error('Error:', error.message);  // Log error message
+      setErrorMessage(error.message);  // Show error message to the user
     }
   };
 
@@ -41,10 +47,10 @@ const Login = () => {
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}  // Update username state
+              placeholder="Username"
               className="w-full p-3 rounded-md bg-gray-700 text-white focus:outline-none"
               required
             />
@@ -53,13 +59,13 @@ const Login = () => {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}  // Update password state
               placeholder="Password"
               className="w-full p-3 rounded-md bg-gray-700 text-white focus:outline-none"
               required
             />
           </div>
-          {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
+          {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}  {/* Show error message */}
           <button
             type="submit"
             className="w-full bg-green-500 hover:bg-green-700 text-white py-3 rounded-md transition duration-300"
