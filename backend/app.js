@@ -1,23 +1,27 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
 
-app.use(cors());
+// Enable CORS to allow requests from React (running on port 5167)
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow React's development server to access API
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
+// Parse incoming JSON data
 app.use(express.json());
 
-// Serve static files (frontend)
-app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the "public" folder
-
+// Add your API routes for authentication and chat
 app.use('/auth', authRoutes);
 app.use('/chat', chatRoutes);
 
-// Catch-all route to serve the index.html file
+// Catch-all route for any other requests (optional)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.status(404).json({ message: 'Not Found' });
 });
 
 module.exports = app;
